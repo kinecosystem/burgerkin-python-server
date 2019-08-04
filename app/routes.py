@@ -25,14 +25,20 @@ def index():
 
 @app.route('/login')
 def login():
-    keypair = kin.Keypair(seed="hello")
+    # keypair = kin.Keypair(seed="SDO3BNCOUDHYLUT5FQ537PZZUPBTMSTRCQOCDJE3XF22LP7DPIUP2SDF")
+    keypair = kin.Keypair()
     #publicKey = request.args.get('public_key')
     #publicKey = "GDESKVL37Y26EV7YQGTKCB56ZTHAXLLDPYUCSQJSKKHIIQ5SWFZKKUSH"
     #publicKey = "GDESKVL37Y26EV7YQGTKCB56ZTHAXLLDPYUCSQJSKKHIIQ5SWFZKKUSJ"
     publicKey = keypair.public_address
     exists = loop.run_until_complete(isAccountExists(publicKey))
+    if exists:
+        print("account already exists")
     if not exists:
+        print("creating account")
         account = loop.run_until_complete(createAccount(publicKey))
         print(account)
+        print(publicKey)
+        print(keypair)
 
     return "OK"
