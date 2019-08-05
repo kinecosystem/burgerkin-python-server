@@ -3,6 +3,7 @@ from flask import request
 
 import kin
 import asyncio
+import json
 
 MASTER_PUBLIC_KEY = 'GAUR7M7GKXZ6UZLGOZ2ZC7SSRLL4YLRRNLJ2UAJLRYYFLYJCI7ELD3MB'
 MASTER_SEED = 'SCMWVESSHCT63VPRV4DR424FZDYUHVV76JGVLYJJNMDZ6C3GIARO6ZGR'
@@ -52,12 +53,17 @@ def login():
         print("creating account")
         txHash = loop.run_until_complete(createAccount(publicKey))
         print(txHash)
-
-    return MASTER_PUBLIC_KEY
+    ret = {
+        'wallet_address': MASTER_PUBLIC_KEY
+    }
+    return json.dumps(ret)
 
 @app.route('/end-game')
 def endGame():
     winner = request.args.get('winner')
     gameId = request.args.get('game_id')
     txHash = loop.run_until_complete(payWinner(winner,gameId))
-    return txHash
+    ret = {
+        'tx_hash': txHash
+    }
+    return json.dumps(ret)
