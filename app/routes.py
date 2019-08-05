@@ -27,6 +27,12 @@ async def createAccount(address):
         txHash = await masterAccount.create_account(address,1000,100)
         return txHash
 
+async def payWinner(winnerAddress,gameId):
+    async with kin.KinClient(kin.TEST_ENVIRONMENT) as client:
+        masterAccount = client.kin_account(MASTER_SEED)
+        txHash = await masterAccount.send_kin(winnerAddress, 20, fee=100, memo_text='pay winner of game ' + gameId)
+        return txHash
+
 loop = asyncio.get_event_loop()
 
 @app.route('/')
@@ -48,3 +54,10 @@ def login():
         print(txHash)
 
     return MASTER_PUBLIC_KEY
+
+@app.route('/end-game')
+def endGame():
+    winner = request.args.get('winner')
+    gameId = request.args.get('game_id')
+    txHash = loop.run_until_complete(payWinner(winner,gameId))
+    return txHash
