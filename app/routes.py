@@ -25,13 +25,15 @@ async def isAccountExists(address):
 async def createAccount(address):
     async with kin.KinClient(kin.TEST_ENVIRONMENT) as client:
         masterAccount = client.kin_account(MASTER_SEED)
-        txHash = await masterAccount.create_account(address,1000,100)
+        minFee = await client.get_minimum_fee()
+        txHash = await masterAccount.create_account(address,1000,minFee)
         return txHash
 
 async def payWinner(winnerAddress,gameId):
     async with kin.KinClient(kin.TEST_ENVIRONMENT) as client:
         masterAccount = client.kin_account(MASTER_SEED)
-        txHash = await masterAccount.send_kin(winnerAddress, 20, fee=100, memo_text='pay winner of game ' + gameId)
+        minFee = await client.get_minimum_fee()
+        txHash = await masterAccount.send_kin(winnerAddress, 20, fee=minFee, memo_text='pay winner of game ' + gameId)
         return txHash
 
 loop = asyncio.get_event_loop()
