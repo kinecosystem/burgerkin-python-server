@@ -37,8 +37,8 @@ def index():
 @app.route('/login')
 def login():
     # keypair = kin.Keypair()
-    publicKey = request.args.get('public_key')
     # publicKey = keypair.public_address
+    publicKey = request.args.get('public_key')
     exists = loop.run_until_complete(isAccountExists(publicKey))
     if exists:
         print("account already exists")
