@@ -1,5 +1,6 @@
 from app import app
 from flask import request
+from flask import jsonify
 
 import kin
 import asyncio
@@ -58,7 +59,8 @@ def login():
     ret = {
         'wallet_address': MASTER_PUBLIC_KEY
     }
-    return json.dumps(ret)
+    # return json.dumps(ret)
+    return jsonify(ret)
 
 @app.route('/end-game')
 def endGame():
@@ -68,4 +70,5 @@ def endGame():
     ret = {
         'tx_hash': txHash
     }
-    return json.dumps(ret)
+    # return json.dumps(ret)
+    return jsonify(ret)
