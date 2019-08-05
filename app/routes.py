@@ -2,6 +2,15 @@ from app import app
 import kin
 import asyncio
 
+MASTER_PUBLIC_KEY = 'GAUR7M7GKXZ6UZLGOZ2ZC7SSRLL4YLRRNLJ2UAJLRYYFLYJCI7ELD3MB'
+MASTER_SEED = 'SCMWVESSHCT63VPRV4DR424FZDYUHVV76JGVLYJJNMDZ6C3GIARO6ZGR'
+BOUNTY = 10
+
+
+WIDTH = 4
+HEIGHT = 4
+games = []
+
 async def isAccountExists(address):
     async with kin.KinClient(kin.TEST_ENVIRONMENT) as client:
         try:
@@ -12,9 +21,9 @@ async def isAccountExists(address):
 
 async def createAccount(address):
     async with kin.KinClient(kin.TEST_ENVIRONMENT) as client:
-        account = await client.friendbot(address)
-        return account
-
+        masterAccount = client.kin_account(MASTER_SEED)
+        txHash = await masterAccount.create_account(address,1000,100)
+        return txHash
 
 loop = asyncio.get_event_loop()
 
@@ -36,9 +45,9 @@ def login():
         print("account already exists")
     if not exists:
         print("creating account")
-        account = loop.run_until_complete(createAccount(publicKey))
-        print(account)
+        txHash = loop.run_until_complete(createAccount(publicKey))
         print(publicKey)
         print(keypair)
+        print(txHash)
 
     return "OK"
