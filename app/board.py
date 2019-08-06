@@ -33,7 +33,7 @@ class Board:
                 self.board[i][z] = flat_list[idx]
                 flat_list.remove(flat_list[idx])
 
-        print(self.board)
+        # print(self.board)
 
     def get_x_y(self,x,y):
         return self.board[x][y]
@@ -47,8 +47,6 @@ class Board:
 
     def flip2(self,player_id,x,y):
         ret = self.board[x][y]
-        print("debug")
-        print(self.last_flipped)
         if self.board[self.last_flipped['x']][self.last_flipped['y']] == ret:
             self.board[x][y] = 999
             self.board[self.last_flipped['x']][self.last_flipped['y']] = 999
