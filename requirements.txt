@@ -8,6 +8,7 @@ Click==7.0
 crc16==0.1.1
 ed25519==1.4
 Flask==1.1.1
+gunicorn==19.9.0
 idna==2.8
 itsdangerous==1.1.0
 Jinja2==2.10.1
