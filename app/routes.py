@@ -1,6 +1,7 @@
 from app import app
 from flask import request
 from flask import jsonify
+from .board import Board
 
 import kin
 import asyncio
@@ -72,3 +73,28 @@ def endGame():
     }
     # return json.dumps(ret)
     return jsonify(ret)
+
+@app.route('/test-board')
+def testBoard():
+    board = Board(5,5)
+    v = board.get_x_y(2,2)
+    print("card on 2,2 is")
+    print(v)
+    v = board.flip1(1,0,0)
+    print("player1 flipped 1st card on 0,0")
+    print(v)
+    v = board.flip2(1,1,0)
+    print("player1 flipped 2nd card on 0,1")
+    print(v)
+    v = board.get_x_y(0,0)
+    print("card on 0,0 is (should be 999 now)")
+    print(v)
+    v = board.get_score(1)
+    print("player1 score is now:")
+    print(v)
+    v = board.is_game_over()
+    print("is game over?")
+    print(v)
+
+
+    return "OK"
