@@ -1,12 +1,44 @@
+from random import randint
+
 class Board:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.board = [[1,2,3,4],[1,2,3,4],[5,6,7,0],[5,6,7,0]]
+        # self.board = [[1,2,3,4],[1,2,3,4],[5,6,7,0],[5,6,7,0]]
         self.scores = {
             1: 0,
             2: 0
         }
+        self.generate_board(x,y)
+
+    def generate_board(self,x,y):
+        # create the board structure
+        self.board = []
+        for i in range(x):
+            row = []
+            for z in range(y):
+                row.append(0)
+            self.board.append(row)
+        # print("initial board:")
+        # print(self.board)
+
+        # create a flat list of cards
+        flat_list = []
+        for card in range(int(x*y/2)):
+            flat_list.append(card)
+            flat_list.append(card)
+        # print("flat_list:")
+        # print(flat_list)
+
+        # loop through the board and pick a random card for each spot visited
+        for i in range(x):
+            for z in range(y):
+                idx = randint(0,len(flat_list)-1)
+                self.board[i][z] = flat_list[idx]
+                flat_list.remove(flat_list[idx])
+
+        print(self.board)
+
 
     def get_x_y(self,x,y):
         return self.board[x][y]

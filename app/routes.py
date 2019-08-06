@@ -76,7 +76,7 @@ def endGame():
 
 @app.route('/test-board')
 def testBoard():
-    board = Board(5,5)
+    board = Board(4,4)
     v = board.get_x_y(2,2)
     print("card on 2,2 is")
     print(v)
