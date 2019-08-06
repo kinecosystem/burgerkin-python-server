@@ -19,16 +19,12 @@ class Board:
             for z in range(y):
                 row.append(0)
             self.board.append(row)
-        # print("initial board:")
-        # print(self.board)
 
         # create a flat list of cards
         flat_list = []
         for card in range(int(x*y/2)):
             flat_list.append(card)
             flat_list.append(card)
-        # print("flat_list:")
-        # print(flat_list)
 
         # loop through the board and pick a random card for each spot visited
         for i in range(x):
@@ -38,7 +34,6 @@ class Board:
                 flat_list.remove(flat_list[idx])
 
         print(self.board)
-
 
     def get_x_y(self,x,y):
         return self.board[x][y]
