@@ -35,7 +35,7 @@ class Board:
     def is_game_over(self):
         ret = True
         for x in self.board:
-            for y in self.board[x]:
-                if self.board[x][y] != 999:
+            for y in x:
+                if y != 999:
                     ret = False
         return ret
